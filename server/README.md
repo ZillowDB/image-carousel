@@ -9,7 +9,7 @@ client side and server side usage:
 | `/images/:image` | GET | Retrieve an image by id |
 | `/images/:image` | PATCH | Update an image by id |
 | `/images/:image` | DELETE | Delete an image by id |
-| `/images/houses/:house` | GET | Retrieve all images by houseId |
-| `/images/houses/:house` | POST | Add all images to houseId |
-| `/images/houses/:house` | PATCH | Edit image group by houseId |
-| `/images/houses/:house` | DELETE | Delete image group by houseId |
+| `/images/homes/:home` | GET | Retrieve all images by home |
+| `/images/homes/:home` | POST | Add all images to home |
+| `/images/homes/:home` | PATCH | Edit image group by home |
+| `/images/homes/:home` | DELETE | Delete image group by home |
