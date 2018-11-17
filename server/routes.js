@@ -7,12 +7,12 @@ const routerHome = express.Router();
 
 routerImages.post('/images', images.get);
 routerImages.get('/images/:image', images.post);
-routerImages.patch('/images/:image', images.update);
+routerImages.put('/images/:image', images.update);
 routerImages.delete('/images/:image', images.delete);
 
-routerHome.post('/images/homes/:home', home.postByHomeId);
-routerHome.get('/images/homes/:home', home.getByHomeId);
-routerHome.patch('/images/homes/:home', home.updateByHomeId);
-routerHome.delete('/images/homes/:home', home.deleteByHomeId);
+routerHome.post('/homes/:home/images', home.postByHomeId);
+routerHome.get('/homes/:home/images', home.getByHomeId);
+routerHome.put('/homes/:home/images', home.updateByHomeId);
+routerHome.delete('/homes/:home/images', home.deleteByHomeId);
 
 module.exports = { routerImages, routerHome };

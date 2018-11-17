@@ -2,15 +2,15 @@ DROP DATABASE IF EXISTS img_carousel;
 
 CREATE DATABASE img_carousel;
 
-USE img_carousel;
+-- POSTGRES
+\c img_carousel
 
 CREATE TABLE images (
-  id INT AUTO_INCREMENT PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   imageUrl TEXT,
-  houseID INT
+  houseId INT,
+  houseName TEXT
 );
 
-CREATE TABLE house (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  description TEXT
-);
+COPY images(imageUrl,houseId, houseName)
+FROM :fname DELIMITER ',' CSV HEADER;

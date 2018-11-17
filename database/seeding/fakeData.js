@@ -2,33 +2,35 @@ require('dotenv').config();
 const faker = require('faker');
 
 const homeUrlBase = `${process.env.S3_BUCKET}/assets/media`;
-const imgData = [];
-const descripData = [];
-const NPOINTS = 50;
 
-const imageGenerator = () => {
-  for (let i = 1; i <= NPOINTS * 6; i += 1) {
-    const imageStorage = {};
-    imageStorage.imageUrl = `${homeUrlBase}/home${faker.random.number({ min: 1, max: 100 })}.jpg`;
-    imageStorage.homeID = faker.random.number({ min: 1, max: NPOINTS });
-    imgData.push(imageStorage);
+module.exports.addressesCreate = () => {
+  const streetNames = new Set();
+  faker.seed(123);
+  while (streetNames.size < 1000) {
+    streetNames.add(faker.address.streetName());
   }
+  return Array.from(streetNames);
 };
 
-const descriptionGenerator = () => {
-  for (let i = 1; i <= NPOINTS; i += 1) {
-    const descripStorage = {};
-    descripStorage.body = `For Sale: $${faker.random.number({ min: 200000, max: 1500000 })} `
-    + `(${faker.random.number({ min: 1, max: 5 })} bed, ${faker.random.number({ min: 1, max: 5 })}`
-    + ` bath, ${faker.random.number({ min: 450, max: 10000 })} sqft)`;
-    descripData.push(descripStorage);
-  }
+const addresses = module.exports.addressesCreate();
+
+const getHomeName = (id) => {
+  const numbers = 10000;
+  const streetName = addresses[Math.floor(id / numbers)];
+  let name = String((id % numbers) + 1); // Add number
+  name += ` ${streetName}`;
+  return name;
 };
 
-imageGenerator();
-descriptionGenerator();
-
-module.exports = {
-  imgData,
-  descripData,
+module.exports.imagesCreate = (start, stop, scale) => {
+  let writeString = '';
+  const st = start * scale;
+  const sp = stop * scale;
+  for (let i = st; i < sp; i += 1) {
+    const imageUrl = `${homeUrlBase}/home${faker.random.number({ min: 1, max: 150 })}.jpg`;
+    const homeId = faker.random.number({ min: start, max: stop });
+    const homeName = getHomeName(homeId);
+    writeString += Buffer.from(`'${imageUrl}',${homeId + 1},'${homeName}'\n`);
+  }
+  return writeString;
 };
