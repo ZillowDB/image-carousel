@@ -19,7 +19,6 @@ if (writeAddresses) {
 // Writing out records for images
 const file = path.resolve(__dirname, './test.csv');
 console.log('writing to here', file);
-// const imagesCols = Buffer.from('id,location,homeId,homeName\n');
 const imagesCols = Buffer.from('location,homeId,homeName\n');
 
 fsPromises.open(file, 'w')
