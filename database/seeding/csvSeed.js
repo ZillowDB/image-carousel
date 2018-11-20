@@ -17,7 +17,7 @@ if (writeAddresses) {
 }
 
 // Writing out records for images
-const file = path.resolve(__dirname, './test.csv');
+const file = path.resolve(__dirname, './test_small.csv');
 console.log('writing to here', file);
 const imagesCols = Buffer.from('location,homeId,homeName\n');
 
@@ -30,13 +30,13 @@ fsPromises.open(file, 'w')
     const rows = 1e5;
     const recurseWrite = (step) => {
       if (step === 0) {
-        return handle.writeFile(imagesCreate(step * rows, (step + 1) * rows, 6));
+        return handle.writeFile(imagesCreate(step * rows, (step + 1) * rows, 4));
       }
       return recurseWrite(step - 1)
-        .then(() => handle.writeFile(imagesCreate(step * rows, (step + 1) * rows, 6)));
+        .then(() => handle.writeFile(imagesCreate(step * rows, (step + 1) * rows, 4)));
     };
 
-    return recurseWrite(0);
+    return recurseWrite(9);
   })
   .then(() => handle.close())
   .then(() => console.log('Done!'))
