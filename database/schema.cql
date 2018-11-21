@@ -9,10 +9,11 @@ CREATE KEYSPACE img_carousel
 USE img_carousel;
 
 CREATE TABLE img_carousel.images (
-  id UUID PRIMARY KEY,
+  id UUID,
   image_url TEXT,
   house_id INT,
-  house_name TEXT
+  house_name TEXT,
+  PRIMARY KEY (house_id, id)
 );
 
 COPY img_carousel.images(image_url, house_id, house_name, id)
