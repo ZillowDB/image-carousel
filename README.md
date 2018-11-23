@@ -15,6 +15,14 @@ From within the root directory:
 ```sh
 npm install
 ```
+### Running in development
+
+From within the root directory:
+
+```sh
+npm run build:dev
+npm run start:dev
+```
 
 ### Database seeding on local
 

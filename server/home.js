@@ -2,7 +2,7 @@ const db = require('../database/index.js');
 
 module.exports.getByHomeId = (req, res) => {
   const id = req.params.home;
-  db.getAllImages(id)
+  db.getAllImagesById(id)
     .then(results => res.status(200).send({ data: results }))
     .catch(err => res.status(500).send(err));
 };

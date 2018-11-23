@@ -16,6 +16,13 @@ CREATE TABLE img_carousel.images (
   PRIMARY KEY (house_id, id)
 );
 
+CREATE TABLE img_carousel.images_by_houseid (
+  house_id INT,
+  house_name TEXT,
+  image_urls set<text>,
+  PRIMARY KEY (house_id)
+);
+
 COPY img_carousel.images(image_url, house_id, house_name, id)
   FROM './seeding/test.csv'
   WITH DELIMITER = ','

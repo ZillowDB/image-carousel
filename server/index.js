@@ -17,6 +17,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/homes/:home/images', routerHome);
+app.use('/addresses/:address/images', routerHome);
 app.use('/images/:image', routerImages);
 app.use('/images', routerImages);
 

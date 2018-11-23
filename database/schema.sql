@@ -1,8 +1,5 @@
 DROP DATABASE IF EXISTS img_carousel;
-
 CREATE DATABASE img_carousel;
-
--- POSTGRES
 \c img_carousel
 
 CREATE TEMPORARY TABLE t (
@@ -29,6 +26,7 @@ INSERT INTO images (image_url, house_id, house_name)
   SELECT image_url, house_id, house_name
   FROM t;
 
-DROP t;
+DROP TABLE  IF EXISTS t;
 
 CREATE INDEX house_sorted ON images USING btree(house_id);
+CREATE INDEX address_sorted ON images USING btree(house_name);

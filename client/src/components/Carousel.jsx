@@ -1,15 +1,34 @@
 import React from 'react';
-import carouselStyle from './Carousel.css';
+import { carouselContainer, firstImageContainer, imageContainer } from './Carousel.css';
 
 const Carousel = (props) => {
-  const otherImages = props.images.slice(1);
+  const { images, renderImage } = props;
+  const otherImages = images.slice(1);
   let imageCount = 0;
   return (
-    <div className={carouselStyle.carouselContainer}> 
-      {props.images.length === 0 ? '' : <img src={`${props.images[0].imageUrl}`} className={carouselStyle.firstImageContainer} id={imageCount} onClick={props.renderImage} />}
+    <div className={carouselContainer}>
+      {images.length === 0 ? ''
+        : (
+          <img
+            src={`${images[0].imageUrl}`}
+            className={firstImageContainer}
+            id={imageCount}
+            alt={'Home 0'}
+            onClick={renderImage}
+          />
+        )
+      }
       {otherImages.map((image, index) => (
-        <img key={index} src={`${image.imageUrl}`} className={carouselStyle.imageContainer} id={imageCount += 1} onClick={props.renderImage} />
-      ))}
+        <img
+          key={index}
+          src={`${image.imageUrl}`}
+          className={imageContainer}
+          id={imageCount += 1}
+          alt={`Home ${index}`}
+          onClick={renderImage}
+        />
+      )
+      )}
     </div>
   );
 };
