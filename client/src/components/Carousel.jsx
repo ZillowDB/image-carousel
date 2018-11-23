@@ -1,5 +1,10 @@
 import React from 'react';
-import { carouselContainer, firstImageContainer, imageContainer } from './Carousel.css';
+import PropTypes from 'prop-types';
+import {
+  carouselContainer,
+  firstImageContainer,
+  imageContainer,
+} from './Carousel.css';
 
 const Carousel = (props) => {
   const { images, renderImage } = props;
@@ -31,6 +36,11 @@ const Carousel = (props) => {
       )}
     </div>
   );
+};
+
+Carousel.propTypes = {
+  images: PropTypes.array.isRequired,
+  renderImage: PropTypes.func.isRequired,
 };
 
 export default Carousel;

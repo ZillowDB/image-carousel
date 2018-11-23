@@ -1,10 +1,18 @@
 import React from 'react';
-import rightArrowStyle from './RightArrow.css';
+import PropTypes from 'prop-types';
+import { rightArrowBlock, right } from './RightArrow.css';
 
-const RightArrow = props => (
-  <span className={rightArrowStyle.rightArrowBlock} onClick={props.goForward}>
-    <i className="fas fa-angle-right" id={rightArrowStyle.right}/>
-  </span>
-);
+const RightArrow = (props) => {
+  const { goForward } = props;
+  return (
+    <span className={rightArrowBlock} onClick={goForward}>
+      <i className="fas fa-angle-right" id={right} />
+    </span>
+  );
+};
+
+RightArrow.propTypes = {
+  goForward: PropTypes.func.isRequired,
+};
 
 export default RightArrow;

@@ -9,14 +9,20 @@ const stringPxToNum = (string) => {
   return Number(num[0]);
 };
 
+const getHouseIdFromUrl = (pathname) => {
+  const splitString = pathname.split('/');
+  return splitString[2];
+};
+
+const houseId = getHouseIdFromUrl(window.location.pathname);
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      images: [],
+      images: null,
       currentIndex: 0,
       toggle: false,
-      image: [],
       viewStyle: {
         position: 'relative',
         right: '0px',
@@ -26,13 +32,15 @@ class App extends React.Component {
         maxWidth: '1629.45px',
       },
     };
+
+    this.houseId = houseId;
     this.renderImage = this.renderImage.bind(this);
     this.goBack = this.goBack.bind(this);
     this.goForward = this.goForward.bind(this);
   }
 
   componentDidMount() {
-    fetch('/homes/:home/images')
+    fetch(`/homes/${this.houseId}/images`)
       .then(response => response.json())
       .then(data => this.setState({ images: data }))
       .catch(() => console.log('Error'));
@@ -125,7 +133,17 @@ class App extends React.Component {
   }
 
   render() {
-    const { carouselStyle, viewStyle, toggle } = this.state;
+    const {
+      carouselStyle,
+      viewStyle,
+      toggle,
+      images,
+    } = this.state;
+
+    if (images === null) {
+      return (<div>Loading...</div>);
+    }
+
     return (
       <div style={carouselStyle}>
         <LeftArrow goBack={this.goBack} />
