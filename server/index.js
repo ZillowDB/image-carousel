@@ -17,8 +17,8 @@ app.use((req, res, next) => {
 });
 
 // Static files
-app.use(express.static(path.resolve(__dirname, '../client/dist')));
-app.use('/homes/:home', express.static(path.resolve(__dirname, '../client/dist')));
+app.use(express.static(path.resolve(__dirname, '../public')));
+app.use('/homes/:home', express.static(path.resolve(__dirname, '../public')));
 
 app.use('/homes/:home/images', routerHome);
 app.use('/addresses/:address/images', routerHome);

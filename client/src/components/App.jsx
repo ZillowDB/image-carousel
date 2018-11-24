@@ -3,19 +3,14 @@ import RightArrow from './RightArrow.jsx';
 import LeftArrow from './LeftArrow.jsx';
 import Carousel from './Carousel.jsx';
 import SlideShow from './SlideShow.jsx';
-// import { getHouseIdFromUrl, stringPxToNum } from './helpers.js';
+import helpers from './helpers.js';
+import {
+  carouselVisible,
+  carouselHidden,
+  viewStyle,
+} from './App.css';
 
-const stringPxToNum = (string) => {
-  const num = string.split('px');
-  return Number(num[0]);
-};
-
-const getHouseIdFromUrl = (pathname) => {
-  const splitString = pathname.split('/');
-  return splitString[2];
-};
-
-const houseId = getHouseIdFromUrl(window.location.pathname);
+const houseId = helpers.getHouseIdFromUrl(window.location.pathname);
 
 class App extends React.Component {
   constructor(props) {
@@ -24,14 +19,7 @@ class App extends React.Component {
       images: null,
       currentIndex: 0,
       toggle: false,
-      viewStyle: {
-        position: 'relative',
-        right: '0px',
-      },
-      carouselStyle: {
-        overflow: 'hidden',
-        maxWidth: '1629.45px',
-      },
+      right: '0px',
     };
 
     this.houseId = houseId;
@@ -43,56 +31,45 @@ class App extends React.Component {
   componentDidMount() {
     fetch(`/homes/${this.houseId}/images`)
       .then(response => response.json())
-      .then(res => this.setState({ images: res.data }))
-      .catch(() => console.log('Error'));
+      .then((res) => {
+        res.data.forEach(img => {
+          const temp = img.imageUrl.split('zillow-db');
+          img.imageUrl = temp[1];
+          console.log('cleaned', img.imageUrl);
+        });
+        this.setState({ images: res.data });
+      })
+      .catch(err => console.log(`Error ${err}`));
+  }
+
+  go(forward = true) {
+    const {
+      toggle,
+      images,
+      currentIndex,
+      right,
+    } = this.state;
+
+    const pixels = helpers.stringPxToNum(right);
+    const change = (forward) ? 1 : -1;
+    const comparison = (forward) ? pixels < 1373 : pixels > 0;
+
+    if (toggle) {
+      this.setState({
+        currentIndex: currentIndex + change,
+        image: images[currentIndex + change].imageUrl,
+      });
+    } else if (toggle === false && comparison) {
+      this.setState({ right: `${pixels + 274.91}px` });
+    }
   }
 
   goBack() {
-    const {
-      toggle,
-      images,
-      currentIndex,
-      viewStyle,
-    } = this.state;
-
-    if (toggle) {
-      this.setState({
-        currentIndex: currentIndex - 1,
-        image: images[currentIndex - 1].imageUrl,
-      });
-    } else if (toggle === false
-      && (stringPxToNum(viewStyle.right) > 0)) {
-      this.setState({
-        viewStyle: {
-          position: 'relative',
-          right: `${stringPxToNum(viewStyle.right) + 274.91}px`,
-        },
-      });
-    }
+    this.go(false);
   }
 
   goForward() {
-    const {
-      toggle,
-      images,
-      currentIndex,
-      viewStyle,
-    } = this.state;
-
-    if (toggle) {
-      this.setState({
-        currentIndex: Number(currentIndex) + 1,
-        image: images[Number(currentIndex) + 1].imageUrl,
-      });
-    } else if (toggle === false
-      && (stringPxToNum(viewStyle.right) < 1373)) {
-      this.setState({
-        viewStyle: {
-          position: 'relative',
-          right: `${stringPxToNum(viewStyle.right) + 274.91}px`,
-        },
-      });
-    }
+    this.go(true);
   }
 
   renderImage(e) {
@@ -102,20 +79,9 @@ class App extends React.Component {
         image: [e.target.src],
         currentIndex: e.target.id,
         toggle: true,
-        carouselStyle: {
-          overflow: 'visible',
-          maxWidth: '1629.45px',
-        },
       });
     } else if (toggle) {
-      this.setState({
-        images,
-        toggle: false,
-        carouselStyle: {
-          overflow: 'hidden',
-          maxWidth: '1629.45px',
-        },
-      });
+      this.setState({ images, toggle: false });
     }
   }
 
@@ -134,22 +100,18 @@ class App extends React.Component {
   }
 
   render() {
-    const {
-      carouselStyle,
-      viewStyle,
-      toggle,
-      images,
-    } = this.state;
-
+    const { right, toggle, images } = this.state;
     if (images === null) {
       return (<div>Loading...</div>);
     }
 
     return (
-      <div style={carouselStyle}>
+      <div
+        className={(toggle) ? carouselHidden : carouselVisible}
+      >
         <LeftArrow goBack={this.goBack} />
         <RightArrow goForward={this.goForward} />
-        <div style={viewStyle}>
+        <div style={right} className={viewStyle}>
           {toggle ? this.renderSelectedImage() : this.renderCarousel()}
         </div>
       </div>

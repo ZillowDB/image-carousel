@@ -2,7 +2,7 @@ module.exports = {
   entry: `${__dirname}/client/src/index.jsx`,
   module: {
     rules: [{
-      test: [/\.jsx$/, /\.js$/],
+      test: [/\.jsx$/],
       exclude: /node_modules/,
       use: {
         loader: 'babel-loader',
@@ -23,11 +23,11 @@ module.exports = {
     }, {
       test: /\.js$/,
       exclude: /node_modules/,
-      use: ['eslint-loader'],
+      // use: ['eslint-loader'],
     }],
   },
   output: {
     filename: 'bundle.js',
-    path: `${__dirname}/client/dist`,
+    path: `${__dirname}/public/dist`,
   },
 };

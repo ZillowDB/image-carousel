@@ -1,9 +1,9 @@
 *.log
 .DS_Store
-bower_components
 node_modules
-client/dist/bundle.js
 
+# Bundle + media files
+public/dist/bundle.js
 public/assets/media/*jpg
 
 *.csv

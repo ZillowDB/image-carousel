@@ -1,0 +1,14 @@
+.carouselVisible {
+  overflow: 'visible';
+  maxWidth: '1629.45px';
+}
+
+.carouselHidden {
+  overflow: 'hidden';
+  maxWidth: '1629.45px';
+}
+
+.viewStyle {
+  position: 'relative';
+  right: '0px';
+}
