@@ -1,6 +1,5 @@
 import React from 'react';
-import RightArrow from './RightArrow.jsx';
-import LeftArrow from './LeftArrow.jsx';
+import Arrow from './Arrow.jsx';
 import Carousel from './Carousel.jsx';
 import SlideShow from './SlideShow.jsx';
 import helpers from './helpers.js';
@@ -109,9 +108,9 @@ class App extends React.Component {
       <div
         className={(toggle) ? carouselHidden : carouselVisible}
       >
-        <LeftArrow goBack={this.goBack} />
-        <RightArrow goForward={this.goForward} />
-        <div style={right} className={viewStyle}>
+        <Arrow direction="left" go={this.goBack} />
+        <Arrow direction="right" go={this.goForward} />
+        <div style={{ right: right }} className={viewStyle}>
           {toggle ? this.renderSelectedImage() : this.renderCarousel()}
         </div>
       </div>

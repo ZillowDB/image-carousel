@@ -1,0 +1,50 @@
+.arrow {
+  font-size: 45px;
+  position: relative;
+  display: inline-block;
+  top: 0px;
+  color: #fff8ea;
+}
+
+.left {
+  composes: arrow;
+  float: left;
+}
+
+.right {
+  composes: arrow;
+  float: right;
+}
+
+.arrow:hover {
+  color: #4198FF;
+}
+
+.arrowBlock {
+  opacity: 0.7;
+  float: left;
+  position: relative;
+  display: inline-block;
+  top: 205px;
+  z-index: 500;
+  background-color: #4f4849;
+  margin-left: 5px;
+  border: solid white 0.5px;
+  padding: 5px;
+}
+
+.leftArrow {
+  composes: arrowBlock;
+  float: left;
+}
+
+.rightArrow {
+  composes: arrowBlock;
+  float: right;
+}
+
+ .arrowBlock:hover {
+  opacity: 0.95;
+  transition: 0.3s;
+}
+
