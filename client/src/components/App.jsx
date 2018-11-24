@@ -58,7 +58,7 @@ class App extends React.Component {
         currentIndex: currentIndex + change,
         image: images[currentIndex + change].imageUrl,
       });
-    } else if (toggle === false && comparison) {
+    } else if ((toggle === false) && comparison) {
       this.setState({ right: `${pixels + 274.91}px` });
     }
   }
@@ -111,7 +111,8 @@ class App extends React.Component {
         <Arrow direction="left" go={this.goBack} />
         <Arrow direction="right" go={this.goForward} />
         <div style={{ right: right }} className={viewStyle}>
-          {toggle ? this.renderSelectedImage() : this.renderCarousel()}
+          {toggle ? this.renderSelectedImage()
+            : this.renderCarousel()}
         </div>
       </div>
     );
