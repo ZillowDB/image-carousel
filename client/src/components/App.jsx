@@ -3,7 +3,6 @@ import RightArrow from './RightArrow.jsx';
 import LeftArrow from './LeftArrow.jsx';
 import Carousel from './Carousel.jsx';
 import SlideShow from './SlideShow.jsx';
-import { relative } from 'path';
 
 const stringPxToNum = (string) => {
   const num = string.split('px');
@@ -33,50 +32,63 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/images/:houseID')
+    fetch('/homes/:home/images')
       .then(response => response.json())
-      .then((data) => {
-        this.setState({
-          images: data,
-        });
-      })
+      .then(data => this.setState({ images: data }))
       .catch(() => console.log('Error'));
   }
 
   goBack() {
-    if (this.state.toggle) { 
+    const {
+      toggle,
+      images,
+      currentIndex,
+      viewStyle,
+    } = this.state;
+
+    if (toggle) {
       this.setState({
-        currentIndex: this.state.currentIndex - 1,
-        image: this.state.images[this.state.currentIndex - 1].imageUrl,
+        currentIndex: currentIndex - 1,
+        image: images[currentIndex - 1].imageUrl,
       });
-    } else if (this.state.toggle === false && (stringPxToNum(this.state.viewStyle.right) > 0)) {
+    } else if (toggle === false
+      && (stringPxToNum(viewStyle.right) > 0)) {
       this.setState({
         viewStyle: {
           position: 'relative',
-          right: stringPxToNum(this.state.viewStyle.right) - 274.91 + 'px'
+          right: `${stringPxToNum(viewStyle.right) + 274.91}px`,
         },
       });
     }
   }
 
   goForward() {
-    if (this.state.toggle) {
+    const {
+      toggle,
+      images,
+      currentIndex,
+      viewStyle,
+    } = this.state;
+
+    if (toggle) {
       this.setState({
-        currentIndex: Number(this.state.currentIndex) + 1,
-        image: this.state.images[Number(this.state.currentIndex) + 1].imageUrl,
+        currentIndex: Number(currentIndex) + 1,
+        image: images[Number(currentIndex) + 1].imageUrl,
       });
-    } else if (this.state.toggle === false && (stringPxToNum(this.state.viewStyle.right) < 1373)) { 
+    } else if (toggle === false
+      && (stringPxToNum(viewStyle.right) < 1373)) {
       this.setState({
         viewStyle: {
           position: 'relative',
-          right: stringPxToNum(this.state.viewStyle.right) + 274.91 + 'px'
+          right: `${stringPxToNum(viewStyle.right) + 274.91}px`,
         },
       });
     }
   }
 
   renderImage(e) {
-    if (!this.state.toggle) {
+    const { toggle, images } = this.state;
+    if (!toggle) {
       this.setState({
         image: [e.target.src],
         currentIndex: e.target.id,
@@ -86,9 +98,9 @@ class App extends React.Component {
           maxWidth: '1629.45px',
         },
       });
-    } else if (this.state.toggle) {
+    } else if (toggle) {
       this.setState({
-        images: this.state.images,
+        images,
         toggle: false,
         carouselStyle: {
           overflow: 'hidden',
@@ -99,24 +111,27 @@ class App extends React.Component {
   }
 
   renderSelectedImage() {
+    const { image } = this.state;
     return (
-      <SlideShow image={this.state.image} renderImage={this.renderImage} />
+      <SlideShow image={image} renderImage={this.renderImage} />
     );
   }
 
   renderCarousel() {
+    const { images } = this.state;
     return (
-      <Carousel images={this.state.images} renderImage={this.renderImage} />
+      <Carousel images={images} renderImage={this.renderImage} />
     );
   }
 
   render() {
+    const { carouselStyle, viewStyle, toggle } = this.state;
     return (
-      <div style={this.state.carouselStyle}>
+      <div style={carouselStyle}>
         <LeftArrow goBack={this.goBack} />
         <RightArrow goForward={this.goForward} />
-        <div style={this.state.viewStyle}>
-          {this.state.toggle ? this.renderSelectedImage() : this.renderCarousel()}
+        <div style={viewStyle}>
+          {toggle ? this.renderSelectedImage() : this.renderCarousel()}
         </div>
       </div>
     );

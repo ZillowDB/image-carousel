@@ -1,5 +1,6 @@
 require('dotenv').config();
 const faker = require('faker');
+const uuidv4 = require('uuid/v4');
 
 const homeUrlBase = `${process.env.S3_BUCKET}/assets/media`;
 
@@ -30,7 +31,7 @@ module.exports.imagesCreate = (start, stop, scale) => {
     const imageUrl = `${homeUrlBase}/home${faker.random.number({ min: 1, max: 150 })}.jpg`;
     const homeId = faker.random.number({ min: start, max: stop });
     const homeName = getHomeName(homeId);
-    writeString += Buffer.from(`'${imageUrl}',${homeId + 1},'${homeName}'\n`);
+    writeString += Buffer.from(`'${imageUrl}',${homeId + 1},'${homeName}',${uuidv4()}\n`);
   }
   return writeString;
 };
