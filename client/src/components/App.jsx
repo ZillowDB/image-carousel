@@ -3,6 +3,7 @@ import RightArrow from './RightArrow.jsx';
 import LeftArrow from './LeftArrow.jsx';
 import Carousel from './Carousel.jsx';
 import SlideShow from './SlideShow.jsx';
+// import { getHouseIdFromUrl, stringPxToNum } from './helpers.js';
 
 const stringPxToNum = (string) => {
   const num = string.split('px');
@@ -42,7 +43,7 @@ class App extends React.Component {
   componentDidMount() {
     fetch(`/homes/${this.houseId}/images`)
       .then(response => response.json())
-      .then(data => this.setState({ images: data }))
+      .then(res => this.setState({ images: res.data }))
       .catch(() => console.log('Error'));
   }
 

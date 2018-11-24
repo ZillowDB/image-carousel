@@ -11,3 +11,4 @@ public/assets/media/*jpg
 ## secrets
 .env
 *.pem
+newrelic.js
