@@ -1,32 +1,86 @@
-module.exports = {
-  entry: `${__dirname}/client/views/index.js`,
-  module: {
-    rules: [{
-      test: [/\.jsx$/],
-      exclude: /node_modules/,
-      use: {
-        loader: 'babel-loader',
-        options: {
-          presets: ['@babel/preset-react', '@babel/preset-env'],
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+module.exports = [
+  {
+    name: 'client',
+    target: 'web',
+    entry: `${__dirname}/client/src/index.jsx`,
+    output: {
+      filename: 'bundle.js',
+      libraryTarget: 'commonjs2',
+      path: `${__dirname}/public/dist`,
+    },
+    devtool: 'source-map',
+    resolve: {
+      extensions: ['.js', '.jsx'],
+    },
+    module: {
+      rules: [{
+        test: [/\.(js|jsx)$/],
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              '@babel/preset-react',
+              '@babel/preset-env',
+            ],
+          },
         },
-      },
-    }, {
-      test: /\.css$/,
-      loader: 'style-loader',
-    }, {
-      test: /\.css$/,
-      loader: 'css-loader',
-      query: {
-        modules: true,
-        localIdentName: '[name]__[local]___[hash:base64:5]',
-      },
-    }, {
-      test: /\.js$/,
-      exclude: /node_modules/,
-    }],
+      }, {
+        test: /\.css$/,
+        use: [{
+          loader: 'style-loader',
+        }, {
+          loader: 'css-loader',
+          options: {
+            modules: true,
+            localIdentName: '[name]__[local]___[hash:base64:5]',
+          },
+        }],
+      }],
+    },
   },
-  output: {
-    filename: 'bundle.js',
-    path: `${__dirname}/public/dist`,
+  {
+    name: 'server',
+    target: 'node',
+    entry: `${__dirname}/client/src/server.jsx`,
+    output: {
+      filename: 'server.js',
+      path: `${__dirname}/public/dist`,
+    },
+    resolve: {
+      extensions: ['.js', '.jsx'],
+    },
+    devtool: 'source-map',
+    module: {
+      rules: [{
+        test: [/\.(js|jsx)$/],
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-react', '@babel/preset-env'],
+          },
+        },
+      }, {
+        test: /\.css$/,
+        use: [{
+          loader: MiniCssExtractPlugin.loader,
+          options: {
+            // publicPath: `${__dirname}/public/dist`,
+            publicPath: '../',
+          },
+        },
+        'css-loader',
+        ],
+      }],
+    },
+    plugins: [
+      new MiniCssExtractPlugin({
+        filename: 'styles.css',
+        chunkFilename: '[id].css',
+      }),
+    ],
   },
-};
+];

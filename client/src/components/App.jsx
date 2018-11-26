@@ -1,16 +1,13 @@
 import React from 'react';
-import Arrow from './Arrow.js';
-import Carousel from './Carousel.js';
-import SlideShow from './SlideShow.js';
-import helpers from './helpers.js';
+import Arrow from './Arrow';
+import Carousel from './Carousel';
+import SlideShow from './SlideShow';
+import helpers from './helpers';
 import {
   carouselVisible,
   carouselHidden,
   viewStyle,
 } from './App.css';
-
-// const houseId = helpers.getHouseIdFromUrl(window.location.pathname);
-const houseId = helpers.getHouseIdFromUrl('/');
 
 class App extends React.Component {
   constructor(props) {
@@ -29,6 +26,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    this.houseId = helpers.getHouseIdFromUrl(window.location.pathname);
     fetch(`/api/homes/${this.houseId}/images`)
       .then(response => response.json())
       .then((res) => {

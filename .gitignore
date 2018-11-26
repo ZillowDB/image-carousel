@@ -3,7 +3,7 @@
 node_modules
 
 # Bundle + media files
-public/dist/bundle.js
+public/dist/*
 public/assets/media/*jpg
 client/views
 
