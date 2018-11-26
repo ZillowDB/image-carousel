@@ -1,22 +1,22 @@
-.arrow {
+.left {
   font-size: 45px;
   position: relative;
   display: inline-block;
   top: 0px;
   color: #fff8ea;
-}
-
-.left {
-  composes: arrow;
   float: left;
 }
 
 .right {
-  composes: arrow;
+  font-size: 45px;
+  position: relative;
+  display: inline-block;
+  top: 0px;
+  color: #fff8ea;
   float: right;
 }
 
-.arrow:hover {
+.right:hover, .left:hover {
   color: #4198FF;
 }
 
@@ -34,16 +34,34 @@
 }
 
 .leftArrow {
-  composes: arrowBlock;
+  opacity: 0.7;
+  float: left;
+  position: relative;
+  display: inline-block;
+  top: 240px;
+  z-index: 500;
+  background-color: #4f4849;
+  margin-left: 5px;
+  border: solid white 0.5px;
+  padding: 5px;
   float: left;
 }
 
 .rightArrow {
-  composes: arrowBlock;
+  opacity: 0.7;
+  float: left;
+  position: relative;
+  display: inline-block;
+  top: 240px;
+  z-index: 500;
+  background-color: #4f4849;
+  margin-left: 5px;
+  border: solid white 0.5px;
+  padding: 5px;
   float: right;
 }
 
- .arrowBlock:hover {
+ .rightArrow:hover, .leftArrow:hover {
   opacity: 0.95;
   transition: 0.3s;
 }

@@ -9,7 +9,8 @@ import {
   viewStyle,
 } from './App.css';
 
-const houseId = helpers.getHouseIdFromUrl(window.location.pathname);
+// const houseId = helpers.getHouseIdFromUrl(window.location.pathname);
+const houseId = helpers.getHouseIdFromUrl('/');
 
 class App extends React.Component {
   constructor(props) {
