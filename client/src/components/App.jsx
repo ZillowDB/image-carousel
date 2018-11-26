@@ -19,7 +19,6 @@ class App extends React.Component {
       right: '0px',
     };
 
-    this.houseId = houseId;
     this.renderImage = this.renderImage.bind(this);
     this.goBack = this.goBack.bind(this);
     this.goForward = this.goForward.bind(this);

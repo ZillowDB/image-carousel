@@ -7,7 +7,6 @@ module.exports = [
     entry: `${__dirname}/client/src/index.jsx`,
     output: {
       filename: 'bundle.js',
-      libraryTarget: 'commonjs2',
       path: `${__dirname}/public/dist`,
     },
     devtool: 'source-map',
@@ -47,6 +46,7 @@ module.exports = [
     entry: `${__dirname}/client/src/server.jsx`,
     output: {
       filename: 'server.js',
+      libraryTarget: 'commonjs2',
       path: `${__dirname}/public/dist`,
     },
     resolve: {
@@ -68,7 +68,6 @@ module.exports = [
         use: [{
           loader: MiniCssExtractPlugin.loader,
           options: {
-            // publicPath: `${__dirname}/public/dist`,
             publicPath: '../',
           },
         },
