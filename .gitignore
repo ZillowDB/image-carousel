@@ -7,6 +7,7 @@ public/dist/bundle.js
 public/assets/media/*jpg
 
 *.csv
+*.csv.gz
 
 ## secrets
 .env

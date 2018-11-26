@@ -7,7 +7,11 @@ helpers.stringPxToNum = (string) => {
 
 helpers.getHouseIdFromUrl = (pathname) => {
   const splitString = pathname.split('/');
-  return splitString[2];
+  if (pathname.includes('homes')) {
+    return splitString[2];
+  }
+
+  return Math.floor(Math.random() * 10e6) + 1;
 };
 
 export default helpers;

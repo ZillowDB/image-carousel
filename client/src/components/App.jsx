@@ -31,11 +31,6 @@ class App extends React.Component {
     fetch(`/homes/${this.houseId}/images`)
       .then(response => response.json())
       .then((res) => {
-        res.data.forEach(img => {
-          const temp = img.imageUrl.split('zillow-db');
-          img.imageUrl = temp[1];
-          console.log('cleaned', img.imageUrl);
-        });
         this.setState({ images: res.data });
       })
       .catch(err => console.log(`Error ${err}`));
