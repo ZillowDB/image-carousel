@@ -9,8 +9,9 @@
   "scripts": {
     "artillery": "artillery run -o loading/artillery.log loading/artillery-server.yml",
     "start:dev": "nodemon server/index.js",
+    "babel": "babel --watch client/src -d client/views/",
     "build:dev": "webpack -d --watch",
-    "build:prod": "webpack -p",
+    "build:prod": "npm run babel && webpack -p",
     "seed": "mysql -u root < database/schema.sql && node database/seeding/seed.js",
     "lint": "eslint . --fix",
     "test": "jest"
@@ -33,13 +34,15 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0-bridge.0",
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "artillery": "^1.6.0-25",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",
+    "babel-plugin-css-modules-transform": "^1.6.2",
     "css-loader": "^1.0.1",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.6.0",

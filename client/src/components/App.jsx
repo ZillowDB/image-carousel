@@ -1,7 +1,7 @@
 import React from 'react';
-import Arrow from './Arrow.jsx';
-import Carousel from './Carousel.jsx';
-import SlideShow from './SlideShow.jsx';
+import Arrow from './Arrow.js';
+import Carousel from './Carousel.js';
+import SlideShow from './SlideShow.js';
 import helpers from './helpers.js';
 import {
   carouselVisible,
@@ -29,7 +29,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`/homes/${this.houseId}/images`)
+    fetch(`/api/homes/${this.houseId}/images`)
       .then(response => response.json())
       .then((res) => {
         this.setState({ images: res.data });

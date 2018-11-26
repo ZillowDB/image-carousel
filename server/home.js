@@ -31,3 +31,21 @@ module.exports.deleteByHomeId = (req, res) => {
     .then(results => res.status(200).send({ data: results.rows }))
     .catch(err => res.status(500).send(err));
 };
+
+module.exports.getByAddress = (req, res) => {
+  const { address } = req.params;
+  db.getAllImagesByAddress(address)
+    .then((results) => {
+      const images = results.rows;
+      images.forEach((image) => { image.imageUrl = image.image_url; });
+      res.status(200).send({ data: results.rows });
+    })
+    .catch(err => res.status(500).send(err));
+};
+
+module.exports.postByAddress = (req, res) => {
+  const { address } = req.params;
+  db.postAllImagesByAddress(address, req.body)
+    .then(results => res.status(201).send({ data: results.rows }))
+    .catch(err => res.status(500).send(err));
+};

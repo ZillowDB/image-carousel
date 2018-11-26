@@ -4,6 +4,7 @@ const home = require('./home');
 
 const routerImages = express.Router({ mergeParams: true });
 const routerHome = express.Router({ mergeParams: true });
+const routerAddress = express.Router({ mergeParams: true });
 
 routerImages.post('/', images.get);
 routerImages.get('/', images.post);
@@ -15,4 +16,7 @@ routerHome.get('/', home.getByHomeId);
 routerHome.put('/', home.updateByHomeId);
 routerHome.delete('/', home.deleteByHomeId);
 
-module.exports = { routerImages, routerHome };
+routerAddress.post('/', home.postByAddress);
+routerAddress.get('/', home.getByAddress);
+
+module.exports = { routerImages, routerHome, routerAddress };

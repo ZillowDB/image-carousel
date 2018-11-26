@@ -1,12 +1,25 @@
 const db = require('./index');
 
+module.exports.getAllImagesByAddress = (address) => {
+  const queryString = 'SELECT * FROM images WHERE house_name = $1';
+  return db.query(queryString, [address]);
+};
+
+module.exports.postAllImagesByAddress = (address, imageUrls) => {
+  let queryString = 'INSERT INTO images (image_url, house_name) VALUES ';
+  const images = [];
+  const queries = imageUrls.map((img, i) => ` (${i * 2 + 1}, ${i * 2 + 2})`);
+  imageUrls.forEach((image) => { images.push(image, address); });
+  queryString += queries.join(',');
+  return db.query(queryString, [...images]);
+};
 module.exports.getAllImagesById = (houseID) => {
   const queryString = 'SELECT * FROM images WHERE house_id = $1';
   return db.query(queryString, [houseID]);
 };
 
 module.exports.postAllImages = (houseID, imageUrls) => {
-  let queryString = 'INSERT INTO images (image_url, houseID) VALUES ';
+  let queryString = 'INSERT INTO images (image_url, house_id) VALUES ';
   const images = [];
   const queries = imageUrls.map((img, i) => ` (${i * 2 + 1}, ${i * 2 + 2})`);
   imageUrls.forEach((image) => { images.push(image, houseID); });
