@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Arrow from './Arrow';
 import Carousel from './Carousel';
 import SlideShow from './SlideShow';
@@ -11,9 +12,10 @@ import {
 
 class App extends React.Component {
   constructor(props) {
+    const { images } = props;
     super(props);
     this.state = {
-      images: null,
+      images,
       currentIndex: 0,
       toggle: false,
       right: '0px',
@@ -93,7 +95,7 @@ class App extends React.Component {
 
   render() {
     const { right, toggle, images } = this.state;
-    if (images === null) {
+    if (images.length === 0) {
       return (<div>Loading...</div>);
     }
 
@@ -111,5 +113,13 @@ class App extends React.Component {
     );
   }
 }
+
+App.propTypes = {
+  images: PropTypes.array,
+};
+
+App.defaultProps = {
+  images: [],
+};
 
 export default App;
