@@ -1,13 +1,16 @@
 *.log
 .DS_Store
-bower_components
 node_modules
-client/dist/bundle.js
 
+# Bundle + media files
+public/dist/*
 public/assets/media/*jpg
+client/views
 
 *.csv
+*.csv.gz
 
 ## secrets
 .env
 *.pem
+newrelic.js
