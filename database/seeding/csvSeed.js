@@ -28,7 +28,7 @@ fsPromises.open(file, 'w')
   })
   .then(() => {
     const rows = 1e5;
-    const scale = 6;
+    const scale = 4;
     const recurseWrite = (step) => {
       if (step === 0) {
         return handle.writeFile(imagesCreate(step * rows, (step + 1) * rows, scale));

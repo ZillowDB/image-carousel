@@ -10,10 +10,7 @@ CREATE TABLE images (
   house_name TEXT
 );
 
-COPY images (image_url, house_id, house_name, description)
-  FROM :fname
-  DELIMITER '|'
-  CSV HEADER;
+\copy images (image_url, house_id, house_name, description) from '/Users/lfelberg/Desktop/lisa-proxy/image-carousel/database/seeding/test.csv' with DELIMITER '|' CSV HEADER
 
 CREATE INDEX house_sorted ON images USING btree(house_id);
 CREATE INDEX address_sorted ON images USING btree(house_name);
