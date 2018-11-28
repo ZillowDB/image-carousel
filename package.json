@@ -11,6 +11,7 @@
     "start:dev": "nodemon server/index.js",
     "build:dev": "webpack -d --watch",
     "build:prod": "webpack -p",
+    "grunt": "grunt --verbose",
     "lint": "eslint . --fix",
     "test": "jest"
   },
@@ -46,6 +47,8 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
+    "grunt": "^1.0.3",
+    "grunt-aws-s3": "^2.0.0",
     "jest": "^23.6.0",
     "mini-css-extract-plugin": "^0.4.5",
     "style-loader": "^0.23.1",
