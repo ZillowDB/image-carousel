@@ -8,7 +8,7 @@ module.exports.getByHomeId = (req, res) => {
       images.forEach((image) => { image.imageUrl = image.image_url; });
       res.status(200).send({ data: results.rows });
     })
-    .catch(err => {console.log(err); res.status(500).send(err) });
+    .catch(err => res.status(500).send(err));
 };
 
 module.exports.postByHomeId = (req, res) => {
