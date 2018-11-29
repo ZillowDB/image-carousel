@@ -32,6 +32,12 @@ module.exports = (grunt) => {
             src: 'server.js',
             dest: 'dist/',
           },
+          {
+            expand: true,
+            cwd: 'public/dist/',
+            src: 'styles.css',
+            dest: 'dist/',
+          },
         ],
       },
     },
